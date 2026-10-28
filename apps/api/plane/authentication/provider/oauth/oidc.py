@@ -121,6 +121,7 @@ class OIDCOAuthProvider(OauthAdapter):
             parts = name.split(" ", 1)
             first_name = parts[0] if parts else ""
             last_name = parts[1] if len(parts) > 1 else ""
+            display_name = user_info_response.get("preferred_username", "")
 
         super().set_user_data(
             {
@@ -131,6 +132,7 @@ class OIDCOAuthProvider(OauthAdapter):
                     "avatar": user_info_response.get("picture", ""),
                     "first_name": first_name,
                     "last_name": last_name,
+                    "display_name": display_name,
                     "is_password_autoset": True,
                 },
             }
